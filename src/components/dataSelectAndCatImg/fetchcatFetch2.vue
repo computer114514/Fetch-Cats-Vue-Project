@@ -54,14 +54,18 @@
 </template>
 
 <style scoped>
+  *{
+    padding:0;
+    margin:0;
+  }
     .loading{
         font-size: 60px;
         line-height: 570px;
         text-align: center;
     }
     .cat-container{
-        width:500px;
-        height:570px;
+        width:100%;
+        height:100%;
         overflow: hidden;
     }
     /* .cat-img{
@@ -72,8 +76,8 @@
     } */
      /* 版本1:正常比例 */
     .cat-img{
-        width:500px;
-        height:570px;
+        width:100%;
+        height:100%;
         object-fit: cover;
         border-radius: 10%;
         /* box-shadow:1px 1px 1px black; */

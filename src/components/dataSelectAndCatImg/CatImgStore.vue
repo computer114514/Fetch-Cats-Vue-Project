@@ -18,13 +18,14 @@
 
     const CatSelector=ref(null)
     //这个和模版上同名的就是这个元素。
-    const props=defineProps(["isFetch","list","isfix"])
+    // const props=
+    defineProps(["isFetch","list","isfix"])
     const emit=defineEmits(["saveDom","CatStoreUrl","FetchBack","Fetch","noFetch","delList"])
     const CatStoreUrl=ref("")
-    
+
     onMounted(()=>{
         emit("saveDom",CatSelector.value)
-        
+
     })
     function Fetch(){
         //在子组件中修改可不是什么明智的选择
@@ -43,27 +44,32 @@
 </script>
 
 <style scoped>
+  *{
+    padding:0;
+    margin:0;
+  }
     .el-button{
         margin:0 10px;
     }
     .bigHeader{
-        overflow-y: auto;
+        /* overflow-y: auto; */
         align-items: center;
         display:flex;
         width:95%;
-        height:auto;
-        margin:15px auto;
+        height:100%;
         background-color: #E3E5E7;
+        border-radius:10px;
+        margin:0 auto;
     }
     .Cat-Selector{
         overflow-y: auto;
+        height:100px;
         background-color: #F6F7F8;
-        height:105px;
         border:3px solid grey;
         border-radius:10px
     }
     .bigHeader .Cat-Selector span{
-        
+
         /* span是行内块!!!!!!!!!!别想修改span的长宽，自然overflow也不行 */
         display: inline-block;
         height:60px;
@@ -88,7 +94,7 @@
     }
     .Cat-Selector-list i{
         /* display: inline-block; */
-        position: absolute; 
+        position: absolute;
         top:18px;
         right:4px;
 

@@ -1,10 +1,11 @@
 <template>
     <div class="bigbox">
-        <div class="img"><fetchcatFetch2 :key="count" @CatList="updateCatList1"></fetchcatFetch2></div>
-        <div class="buttons" style="display:flex;justify-content: space-around;width:100%;" tabindex="0" @keydown="OneKey">
+        <div class="img">
+          <fetchcatFetch2 :key="count" @CatList="updateCatList1"></fetchcatFetch2>
+        </div>
+        <div class="buttons" @keydown="OneKey">
             <el-button type="primary" size="large" @click="updateIsNew" > 随机小猫(→切换)</el-button>
             <el-button type="success" size="large" @click="updateCatList2">这个不错(Enter添加)</el-button>
-            <!-- @click="updateCatList" -->
         </div>
     </div>
 </template>
@@ -55,19 +56,26 @@
         padding:0;
         margin:0;
     }
-    
     .img{
-        margin:30px auto;
-        width:500px;
-        height:570px;
+        margin:0 10px;
+        width: 1000px;
+        height:700px;
     }
     .bigbox{
         padding:10px;
         display:flex;
-        flex-wrap: wrap;
-        width:600px;
-        height:700px;
+        flex-direction: column;
+        width:100%;
+        height:100%;
         background-color: #F5F5F5;
+    }
+    .buttons{
+
+      width:200px;
+      height: 30px;
+      display:flex;
+      justify-content: space-around;
+      margin-top:710px;
     }
     /* .el-button{
         margin:0 230px;
