@@ -6,7 +6,9 @@
     </CatImgStore>
     </div>
     <div class="left">
-    <left></left>
+    <left>
+
+    </left>
     </div>
     <div class="main">
     <fetchCat2 @CatList="updateCatList" v-if="isFetch"></fetchCat2>
@@ -27,6 +29,8 @@ import{nextTick}from "vue";
     import fetchCat2Copy from './components/dataSelectAndCatImg/fetchCat2Copy.vue';
     import {ref} from "vue"
     import CatImgStore from "./components/dataSelectAndCatImg/CatImgStore.vue";
+    import Left from "./components/dataSelectAndCatImg/Left.vue";
+    import Right from "./components/dataSelectAndCatImg/Right.vue";
     //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
     const isFetch=ref(true)
     const list=ref([])
@@ -76,7 +80,7 @@ import{nextTick}from "vue";
             width: 100%;
             height:100%;
             overflow: hidden;
-            border-radius:5%;
+            /* border-radius:5%; */
             padding:10px;
             display:grid;
             grid-template-columns:400px 1fr 200px;
@@ -92,7 +96,7 @@ import{nextTick}from "vue";
         .left{
 
           height:auto;
-          background-color: blueviolet;
+          background-color: skyblue;
         }
         .right{
           height:auto;

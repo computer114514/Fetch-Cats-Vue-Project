@@ -5,7 +5,8 @@
 </template>
 
 <script lang="js" setup>
-    const props=defineProps(["CatStoreUrl"])
+    // const props=
+    defineProps(["CatStoreUrl"])
 </script>
 
 
@@ -15,11 +16,11 @@
         padding:0;
         margin:0;
     }
-    
+
     .img{
-        margin:30px auto;
-        width:500px;
-        height:570px;
+        margin:20px 35px;
+        width:950px;
+        height:700px;
         overflow: hidden;
     }
     .bigbox{
@@ -32,8 +33,8 @@
         overflow: hidden;
     }
     .cat-img{
-        width:500px;
-        height:570px;
+        width:100%;
+        height:100%;
         object-fit: cover;
         border-radius: 10%;
         /* box-shadow:1px 1px 1px black; */

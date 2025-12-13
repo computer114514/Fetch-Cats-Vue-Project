@@ -56,25 +56,23 @@
         padding:0;
         margin:0;
     }
-    .img{
-        margin:0 10px;
-        width: 1000px;
-        height:700px;
-    }
     .bigbox{
         padding:10px;
         display:flex;
         flex-direction: column;
-        width:100%;
+        width:90%;
         height:100%;
         background-color: #F5F5F5;
     }
-    .buttons{
+    .bigbox .img{
+        margin:0 90px;
+        width: 800px;
+        height:600px;
+    }
 
-      width:200px;
-      height: 30px;
-      display:flex;
-      justify-content: space-around;
+    .buttons{
+      /* display:flex; */
+      /* justify-content: space-around; */
       margin-top:710px;
     }
     /* .el-button{
