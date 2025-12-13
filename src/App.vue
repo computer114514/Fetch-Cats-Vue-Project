@@ -1,15 +1,23 @@
 <template>
 <div class="bigbox">
     <div class="header">
+<<<<<<< HEAD
     <CatImgStore :isFetch="isFetch" :list="list" :isfix="isfix" @Fetch="Fetch"
      @noFetch="noFetch" @saveDom="saveDom" @CatStoreUrl="CatStoreUrl" @delList="delList"></CatImgStore>
+=======
+    <Header></Header>
+>>>>>>> f568a9ead8230586e45aeb0edf1cfa885ea4556c
   </div>
   <div class="left">
     <left></left>
   </div>
   <div class="main">
+<<<<<<< HEAD
     <fetchCat2 @CatList="updateCatList" v-if="isFetch"></fetchCat2>
     <fetchCat2Copy :CatStoreUrl="catstoreurl" v-if="!isFetch"></fetchCat2Copy>
+=======
+    <Main></Main>
+>>>>>>> f568a9ead8230586e45aeb0edf1cfa885ea4556c
   </div>
   <div class="right">
     <Right></Right>
@@ -20,6 +28,7 @@
 
 
 <script setup>
+<<<<<<< HEAD
 import{nextTick}from "vue";
     // import {fetchCat} from "./components/fetchCat.vue"
     //经典错误
@@ -64,6 +73,12 @@ import{nextTick}from "vue";
         list.value=list.value.filter(item=>item!==url)
         //这里出现了问题，必须要赋值到list.value才可以
     }
+=======
+  import Header   from './components/Header.vue';
+  import Left from './components/Left.vue';
+  import Right from './components/Right.vue';
+  import Main from './components/Main.vue';
+>>>>>>> f568a9ead8230586e45aeb0edf1cfa885ea4556c
 </script>
 
 <style scoped>
