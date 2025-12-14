@@ -1,12 +1,12 @@
 <template>
     <div class="bigbox">
-        <div class="img"><img v-bind:src="CatStoreUrl" alt="error" class="cat-img"></div>
+        <div class="img"><img v-bind:src="currentCat.url" alt="error" class="cat-img"></div>
     </div>
 </template>
 
 <script lang="js" setup>
     // const props=
-    defineProps(["CatStoreUrl"])
+    defineProps(["currentCat"])
 </script>
 
 

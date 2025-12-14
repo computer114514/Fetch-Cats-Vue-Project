@@ -5,20 +5,24 @@
         <h1>状 态 栏</h1>
       </el-header>
       <el-main>
-        <p>昵称:</p>
-        <p>年龄:</p>
-        <p>好感:</p>
-        <p>好感评级:</p>
-        <p>摸摸次数:</p>
-        <p>散步次数:</p>
-        <div >114514<br>1919810</div>
+          <p >id:{{ currentCat.id }}</p>
+          <p>地址:<a :href="currentCat.url">选取猫猫后戳此获取图片原链接</a></p>
+          <p>昵称:{{ currentCat.name }}</p>
+          <p>编号:{{ currentCat.no }}</p>
+          <p>年龄:</p>
+          <p>好感:</p>
+          <p>好感评级:</p>
+          <p>摸摸次数:</p>
+          <p>散步次数:</p>
+          <div >114514<br>1919810</div>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script lang="js" setup>
-
+  const props=defineProps(["currentCat"])
+  // console.log("currentCat",props.currentCat)
 </script>
 
 <style scoped>

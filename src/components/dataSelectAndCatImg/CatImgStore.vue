@@ -2,9 +2,9 @@
     <div class="bigHeader">
         <el-button size="large" @click="Fetch">捕获新猫猫</el-button>
         <div class="Cat-Selector" :class="{fix:isfix}" ref="CatSelector">
-            <span v-for="item in list" :key="item" class="Cat-Selector-list">
-                <img :src="item" alt="err" @click="()=>{CatStoreUrl=item;noFetch()}">
-                <i class="iconfont icon-shanchu" @click="delList(item)"></i>
+            <span v-for="item in list" :key="item.id" class="Cat-Selector-list">
+                <img :src="item.url" alt="err" @click="()=>{CurrentCat=item;noFetch()}">
+                <i class="iconfont icon-shanchu" @click="delList(item.url)"></i>
             </span>
         </div>
     </div>
@@ -20,8 +20,8 @@
     //这个和模版上同名的就是这个元素。
     // const props=
     defineProps(["isFetch","list","isfix"])
-    const emit=defineEmits(["saveDom","CatStoreUrl","FetchBack","Fetch","noFetch","delList"])
-    const CatStoreUrl=ref("")
+    const emit=defineEmits(["saveDom","CurrentCat","FetchBack","Fetch","noFetch","delList"])
+    const CurrentCat=ref("")
 
     onMounted(()=>{
         emit("saveDom",CatSelector.value)
@@ -34,7 +34,7 @@
     function noFetch(){
         //在子组件中修改可不是什么明智的选择
         emit("noFetch");
-        emit("CatStoreUrl",CatStoreUrl.value)
+        emit("CurrentCat",CurrentCat.value)
     }
     function delList(e){
         emit("delList",e)

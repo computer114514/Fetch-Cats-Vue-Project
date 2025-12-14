@@ -2,25 +2,29 @@
   <div class="bigbox">
     <div class="header">
     <CatImgStore :isFetch="isFetch" :list="list" :isfix="isfix" @Fetch="Fetch"
-     @noFetch="noFetch" @saveDom="saveDom" @CatStoreUrl="CatStoreUrl" @delList="delList">
+     @noFetch="noFetch" @saveDom="saveDom" @CurrentCat="CurrentCat" @delList="delList" :currentCat="currentCat">
     </CatImgStore>
     </div>
     <div class="left">
-    <left>
-
-    </left>
+    <left :currentCat="currentCat"></left>
     </div>
     <div class="main">
-    <fetchCat2 @CatList="updateCatList" v-if="isFetch"></fetchCat2>
-    <fetchCat2Copy :CatStoreUrl="catstoreurl" v-if="!isFetch"></fetchCat2Copy>
+    <fetchCat2 @CatList="updateCatList" v-if="isFetch" :currentCat="currentCat"
+    @changeCurrentName="changeCurrentName" @changeCurrentNo="changeCurrentNo"></fetchCat2>
+    <fetchCat2Copy :currentCat="currentCat" v-if="!isFetch"></fetchCat2Copy>
     </div>
     <div class="right">
     <Right></Right>
     </div>
+    <!-- <test></test> -->
   </div>
+
+
+
 </template>
 
 <script setup>
+
 import{nextTick}from "vue";
     // import {fetchCat} from "./components/fetchCat.vue"
     //经典错误
@@ -31,16 +35,17 @@ import{nextTick}from "vue";
     import CatImgStore from "./components/dataSelectAndCatImg/CatImgStore.vue";
     import Left from "./components/dataSelectAndCatImg/Left.vue";
     import Right from "./components/dataSelectAndCatImg/Right.vue";
+    // import test from "./components/dataSelectAndCatImg/test.vue";
     //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
     const isFetch=ref(true)
     const list=ref([])
     let dom=ref(null)
     const isfix=ref(false);
-    let catstoreurl=ref("")
-    function updateCatList(url){
-        console.log("is list value????",list.value[0])
-        list.value=list.value.filter(item=>item!==url)
-        list.value.push(url)
+    let currentCat=ref({})
+    function updateCatList(Data){
+        console.log("更新CatList",Data)
+        list.value=list.value.filter(item=>item!==Data)
+        list.value.push(Data)
         fun()
     }
     function saveDom(m){
@@ -52,11 +57,20 @@ import{nextTick}from "vue";
             const height=dom.value.offsetHeight;
             isfix.value=height>165;
     }
-    function CatStoreUrl(m){
-        catstoreurl.value=m;
-        console.log("CatStoreUrl Here",m)
+    function CurrentCat(m){
+        currentCat.value=m;
+        console.log("currentCat",currentCat.value)
+    }
+    function changeCurrentName(m){
+      console.log("修改了名字")
+      currentCat.value.name=m;
+    }
+    function changeCurrentNo(m){
+      console.log("修改了no")
+      currentCat.value.no=m;
     }
     function Fetch(){
+      currentCat.value="";
         isFetch.value=true;
     }
     function noFetch(){
@@ -64,7 +78,7 @@ import{nextTick}from "vue";
     }
     function delList(url){
         console.log("删除了",url)
-        list.value=list.value.filter(item=>item!==url)
+        list.value=list.value.filter(item=>item.url!==url)
         //这里出现了问题，必须要赋值到list.value才可以
     }
 

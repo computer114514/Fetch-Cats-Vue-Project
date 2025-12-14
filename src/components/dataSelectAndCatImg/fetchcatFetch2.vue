@@ -17,8 +17,10 @@
             // information.value.push(await res.json());
             information.value = await res.json()   // 把 JSON 塞进盒子,整个替换
             //因为await会阻塞async函数，获取到数据后才执行urlData的赋值
-            console.log("test")
+            // console.log("test")
             const urlData=information.value[0]
+            urlData.name="未登记";
+            urlData.no=0;
             emit('CatList',urlData)
         }
         catch(e){
