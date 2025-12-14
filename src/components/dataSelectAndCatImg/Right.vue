@@ -5,18 +5,34 @@
         <h1>行  动</h1>
       </el-header>
       <el-main>
-        <el-button size="large">摸摸</el-button>
-        <el-button size="large">抱抱</el-button>
-        <el-button size="large">散步</el-button>
-        <el-button size="large">玩耍</el-button>
-        <el-button size="large">喂食</el-button>
+        <el-button size="large" @click="momo">摸摸</el-button>
+        <el-button size="large" @click="hug">抱抱</el-button>
+        <el-button size="large" @click="walk">散步</el-button>
+        <el-button size="large" @click="play">玩耍</el-button>
+        <el-button size="large" @click="feed">喂食</el-button>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script lang="js" setup>
-
+  // import {ref} from "vue"
+  const emit=defineEmits(["momo","hug","walk","play","feed"])
+  function momo(){
+    emit("momo")
+  }
+    function hug(){
+    emit("hug")
+  }
+    function walk(){
+    emit("walk")
+  }
+    function play(){
+    emit("play")
+  }
+    function feed(){
+    emit("feed")
+  }
 </script>
 
 <style scoped>
@@ -56,6 +72,9 @@
             }
         }
     }
-
+    .el-button{
+      padding:10px;
+      font-size:25px;
+    }
   }
 </style>

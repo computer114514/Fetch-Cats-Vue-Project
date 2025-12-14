@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1045417",
+      "name": "抱抱",
+      "font_class": "hug",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6646740",
+      "name": "散步",
+      "font_class": "sanbu",
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
+    },
+    {
+      "icon_id": "17425317",
+      "name": "宠物玩耍",
+      "font_class": "chongwutubiao05",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "20416242",
+      "name": "喂食器皿",
+      "font_class": "weishiqimin",
+      "unicode": "ed12",
+      "unicode_decimal": 60690
+    },
+    {
+      "icon_id": "24722440",
+      "name": "手",
+      "font_class": "shou",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "34799320",
+      "name": "鼓励",
+      "font_class": "zhengnengliang",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    }
+  ]
+}

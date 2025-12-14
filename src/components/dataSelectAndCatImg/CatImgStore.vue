@@ -1,11 +1,15 @@
 <template>
     <div class="bigHeader">
-        <el-button size="large" @click="Fetch">捕获新猫猫</el-button>
+        <div class="topButtons" style="display: flex;flex-direction: column;">
+          <el-button size="large"  @click="Fetch" style="padding:15px;font-size:large;margin-bottom:10px;"> 捕获新猫猫 </el-button>
+          <el-button size="large"  @click="Fetch();store()" style="padding:15px;font-size:large" > 保存 </el-button>
+        </div>
         <div class="Cat-Selector" :class="{fix:isfix}" ref="CatSelector">
             <span v-for="item in list" :key="item.id" class="Cat-Selector-list">
                 <img :src="item.url" alt="err" @click="()=>{CurrentCat=item;noFetch()}">
                 <i class="iconfont icon-shanchu" @click="delList(item.url)"></i>
             </span>
+
         </div>
     </div>
 
@@ -13,14 +17,14 @@
 </template>
 
 <script lang="js" setup>
-    import {onMounted, ref} from "vue"
+    import {onMounted, ref,nextTick} from "vue"
 // import { linkEmits } from 'element-plus';
 
     const CatSelector=ref(null)
     //这个和模版上同名的就是这个元素。
     // const props=
     defineProps(["isFetch","list","isfix"])
-    const emit=defineEmits(["saveDom","CurrentCat","FetchBack","Fetch","noFetch","delList"])
+    const emit=defineEmits(["saveDom","CurrentCat","FetchBack","Fetch","noFetch","delList","store"])
     const CurrentCat=ref("")
 
     onMounted(()=>{
@@ -41,7 +45,11 @@
         emit("delList",e)
     }
     //nexTick代表等dom元素更新完成之后
-
+    function store(){
+        nextTick(()=>{
+          emit("store")
+        })
+    }
 </script>
 
 <style scoped>

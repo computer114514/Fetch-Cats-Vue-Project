@@ -6,7 +6,7 @@
       </el-header>
       <el-main>
           <p >id:{{ currentCat.id }}</p>
-          <p>地址:<a :href="currentCat.url">选取猫猫后戳此获取图片原链接</a></p>
+          <p>地址:<a :href="currentCat.url">选取猫猫后戳此获取</a></p>
           <p>昵称:{{ currentCat.name }}</p>
           <p>编号:{{ currentCat.no }}</p>
           <p>年龄:{{ currentCat.age }}</p>
@@ -14,15 +14,14 @@
           <p>好感评级:{{ currentCat.goodLevel }}</p>
           <p>摸摸次数:{{ currentCat.momoCount }}</p>
           <p>散步次数:{{ currentCat.walkCount }}</p>
-          <div >114514<br>1919810</div>
-          <p>{{ currentCat }}</p>
+          <div>{{ chat }}</div>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script lang="js" setup>
-defineProps(["currentCat"])
+defineProps(["currentCat","chat"])
   // console.log("currentCat",props.currentCat)
 </script>
 
@@ -42,7 +41,7 @@ defineProps(["currentCat"])
             border-bottom:4px dotted blue;
         }
         .el-main{
-          font-size: 20px;
+          font-size: 25px;
           color:#666666;
           display: flex;
           flex-direction: column;
@@ -54,7 +53,12 @@ defineProps(["currentCat"])
               margin-left:20px;
             }
             div{
+              font-size:25px;
+              text-align:center;
+              line-height: 75px;
+              border-radius: 3%;
               width:300px;
+              height:75px;
               margin-top:auto;
               margin:0 auto;
               border:1px solid black;

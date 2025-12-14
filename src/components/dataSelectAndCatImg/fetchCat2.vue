@@ -4,8 +4,8 @@
           <fetchcatFetch2 :key="count" @CatList="updateCatList1"></fetchcatFetch2>
         </div>
         <div class="buttons" @keydown="OneKey">
-            <el-button type="primary" size="large" @click="updateIsNew" > 随机小猫(→切换)</el-button>
-            <el-button type="success" size="large" @click="updateCatList2">这个不错(Enter添加)</el-button>
+            <el-button type="primary" size="large" @click="updateIsNew" style="padding:20px;font-size:20px"> 随机小猫(→切换)</el-button>
+            <el-button type="success" size="large" @click="updateCatList2" style="padding:20px;font-size:20px">这个不错(Enter添加)</el-button>
         </div>
     </div>
 
@@ -41,7 +41,7 @@ const formLabelWidth = '70px'
     import {onMounted, ref,onUnmounted} from "vue"
     import fetchcatFetch2 from "./fetchcatFetch2.vue"
 
-    const emit=defineEmits(["CatList","updateCurrentList"])
+    const emit=defineEmits(["CatList","updateCurrentList","changeIsFetch"])
     defineProps(["currentCat"])
   // const dialogFormVisible=ref(false);
     const count=ref(0)
@@ -81,6 +81,7 @@ const formLabelWidth = '70px'
         name:currentName.value,
         no:currentNo.value
       }
+      emit("changeIsFetch",false)
       emit("updateCurrentList",updateData)
       dialogFormVisible.value = false;
     }
