@@ -9,19 +9,20 @@
           <p>地址:<a :href="currentCat.url">选取猫猫后戳此获取图片原链接</a></p>
           <p>昵称:{{ currentCat.name }}</p>
           <p>编号:{{ currentCat.no }}</p>
-          <p>年龄:</p>
-          <p>好感:</p>
-          <p>好感评级:</p>
-          <p>摸摸次数:</p>
-          <p>散步次数:</p>
+          <p>年龄:{{ currentCat.age }}</p>
+          <p>好感:{{ currentCat.good}}</p>
+          <p>好感评级:{{ currentCat.goodLevel }}</p>
+          <p>摸摸次数:{{ currentCat.momoCount }}</p>
+          <p>散步次数:{{ currentCat.walkCount }}</p>
           <div >114514<br>1919810</div>
+          <p>{{ currentCat }}</p>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script lang="js" setup>
-  const props=defineProps(["currentCat"])
+defineProps(["currentCat"])
   // console.log("currentCat",props.currentCat)
 </script>
 

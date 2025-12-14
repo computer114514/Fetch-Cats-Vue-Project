@@ -10,7 +10,7 @@
     </div>
     <div class="main">
     <fetchCat2 @CatList="updateCatList" v-if="isFetch" :currentCat="currentCat"
-    @changeCurrentName="changeCurrentName" @changeCurrentNo="changeCurrentNo"></fetchCat2>
+    @updateCurrentList="updateCurrentList"></fetchCat2>
     <fetchCat2Copy :currentCat="currentCat" v-if="!isFetch"></fetchCat2Copy>
     </div>
     <div class="right">
@@ -46,6 +46,7 @@ import{nextTick}from "vue";
         console.log("更新CatList",Data)
         list.value=list.value.filter(item=>item!==Data)
         list.value.push(Data)
+        currentCat.value = Data
         fun()
     }
     function saveDom(m){
@@ -61,16 +62,18 @@ import{nextTick}from "vue";
         currentCat.value=m;
         console.log("currentCat",currentCat.value)
     }
-    function changeCurrentName(m){
-      console.log("修改了名字")
-      currentCat.value.name=m;
-    }
-    function changeCurrentNo(m){
-      console.log("修改了no")
-      currentCat.value.no=m;
+    function updateCurrentList(newData){
+      currentCat.value={
+        ...currentCat.value,
+        ...newData
+      }
+      const index = list.value.findIndex(item => item.url === currentCat.value.url)
+          if (index !== -1) {
+            list.value.splice(index, 1, { ...currentCat.value })
+          }
     }
     function Fetch(){
-      currentCat.value="";
+      currentCat.value={};
         isFetch.value=true;
     }
     function noFetch(){

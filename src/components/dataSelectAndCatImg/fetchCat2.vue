@@ -41,7 +41,7 @@ const formLabelWidth = '70px'
     import {onMounted, ref,onUnmounted} from "vue"
     import fetchcatFetch2 from "./fetchcatFetch2.vue"
 
-    const emit=defineEmits(["CatList","changeCurrentName","changeCurrentNo"])
+    const emit=defineEmits(["CatList","updateCurrentList"])
     defineProps(["currentCat"])
   // const dialogFormVisible=ref(false);
     const count=ref(0)
@@ -74,14 +74,15 @@ const formLabelWidth = '70px'
 
     function updateCatList2(){
         dialogFormVisible.value=true;
-
     }
     function confirm(){
-      console.log("确认")
-      dialogFormVisible.value = false;
       emit("CatList",urlData.value)
-      emit("changeCurrentName",currentName.value)
-      emit("changeCurrentNo",currentNo.value)
+      const updateData={
+        name:currentName.value,
+        no:currentNo.value
+      }
+      emit("updateCurrentList",updateData)
+      dialogFormVisible.value = false;
     }
 </script>
 

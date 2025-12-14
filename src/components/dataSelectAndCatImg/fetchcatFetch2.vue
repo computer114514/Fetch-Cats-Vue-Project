@@ -21,6 +21,11 @@
             const urlData=information.value[0]
             urlData.name="未登记";
             urlData.no=0;
+            urlData.age=0;
+            urlData.good=0;
+            urlData.goodLevel="陌生"
+            urlData.walkCount=0;
+            urlData.momoCount=0;
             emit('CatList',urlData)
         }
         catch(e){
