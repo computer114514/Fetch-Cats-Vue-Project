@@ -104,9 +104,8 @@
     .Cat-Selector-list i{
         /* display: inline-block; */
         position: absolute;
-        top:18px;
+        top:12px;
         right:4px;
-
         opacity: 0;
         transition:opacity  0.1s ease-in;
     }

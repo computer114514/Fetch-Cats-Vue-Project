@@ -5,14 +5,15 @@
         <h1>行  动</h1>
       </el-header>
       <el-main>
-        <el-button size="large" @click="momo">摸摸</el-button>
-        <el-button size="large" @click="hug">抱抱</el-button>
-        <el-button size="large" @click="walk">散步</el-button>
-        <el-button size="large" @click="play">玩耍</el-button>
-        <el-button size="large" @click="feed">喂食</el-button>
+        <i class="iconfont icon-zhengnengliang"></i><el-button size="large" @click="momo">摸摸</el-button>
+        <i class="iconfont icon-hug"></i><el-button size="large" @click="hug">抱抱</el-button>
+        <i class="iconfont icon-sanbu"></i><el-button size="large" @click="walk">散步</el-button>
+        <i class="iconfont icon-chongwutubiao05"></i><el-button size="large" @click="play">玩耍</el-button>
+        <i class="iconfont icon-weishiqimin"></i><el-button size="large" @click="feed">喂食</el-button>
       </el-main>
     </el-container>
   </div>
+      <link rel="stylesheet" href="/public/图标/右侧/iconfont.css">
 </template>
 
 <script lang="js" setup>
@@ -59,9 +60,12 @@
           border:4px solid skyblue;
           height: 100%;
           border-top:0;
+            i{
+              justify-content: center;
+              text-align: center;
+            }
             .el-button{
               margin:0 20px;
-              margin-top:50px;
             }
             div{
               width:300px;

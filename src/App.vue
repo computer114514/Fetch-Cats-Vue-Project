@@ -99,16 +99,17 @@ import{nextTick, onMounted}from "vue";
       isFetch.value=value;
     }
     function momo(){
+      if(!isFetch.value){
       chat.value="Cat好像很开心呢!"
-      if(!isFetch.value&&!isFetch.value){
         currentCat.value.momoCount+=1;
         currentCat.value.good+=1;
         goodLevel();
       }
     }
     function hug(){
-      chat.value="Cat被举了起来!"
-      if(!isFetch.value&&!isFetch.value){
+
+      if(!isFetch.value){
+        chat.value="Cat被举了起来!"
         // currentCat.value.momoCount+=1;
         currentCat.value.good+=2;
         goodLevel();
@@ -116,24 +117,24 @@ import{nextTick, onMounted}from "vue";
       }
     }
     function walk(){
+      if(!isFetch.value){
       chat.value="Cat四处溜达了一圈!"
-      if(!isFetch.value&&!isFetch.value){
         currentCat.value.walkCount+=1;
         currentCat.value.good+=5;
         goodLevel();
       }
     }
     function feed(){
+      if(!isFetch.value){
       chat.value="Cat开动啦!"
-      if(!isFetch.value&&!isFetch.value){
         // currentCat.value.walkCount+=1;
         currentCat.value.good+=10;
         goodLevel();
       }
     }
         function play(){
+      if(!isFetch.value){
           chat.value="Cat玩得很开心!"
-      if(!isFetch.value&&!isFetch.value){
         // currentCat.value.walkCount+=1;
         currentCat.value.good+=15;
         goodLevel();
