@@ -1,44 +1,16 @@
-# vue赛博猫猫项目
+# vue赛博猫猫项目 一键随机获取猫猫图片
+点击按钮或者方向右键重新获取猫猫图片
+点击按钮或者回车键加入到文件列表
 
-This template should help get you started developing with Vue 3 in Vite.
+左侧栏目是猫咪的基本信息栏和好感度栏
 
-## Recommended IDE Setup
+右侧是你和你的猫猫的互动
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 技术栈
+html css javascript vue
 
-## Recommended Browser Setup
+## 局限
+目前无法本地存储，只能作为玩具
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## 提醒
+猫猫不会饿死的，放心，这边都是赛博的
