@@ -39,6 +39,13 @@ import{nextTick, onMounted}from "vue";
     import CatActions from "./components/dataSelectAndCatImg/CatActions.vue";
     // import test from "./components/dataSelectAndCatImg/test.vue";
     //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
+
+    const chat=ref("欢迎光临！")
+    const isFetch=ref(true)
+    const list=ref([])
+    let dom=ref(null)
+    const isfix=ref(false);
+    let currentCat=ref({})
     function goodLevel(){
       if(0<currentCat.value.good&&currentCat.value.good<10){
           currentCat.value.goodLevel="认识你是谁"
@@ -50,12 +57,6 @@ import{nextTick, onMounted}from "vue";
           currentCat.value.goodLevel="超熟悉"
         }
     }
-    const chat=ref("欢迎光临！")
-    const isFetch=ref(true)
-    const list=ref([])
-    let dom=ref(null)
-    const isfix=ref(false);
-    let currentCat=ref({})
     function updateCatList(Data){
         console.log("更新CatList",Data)
         list.value=list.value.filter(item=>item!==Data)

@@ -3,4 +3,6 @@ import App from './App.vue'
 
 import "./style.css"
 
-createApp(App).mount('#app')
+import pinia from "./stores/index.js"
+
+createApp(App).use(pinia).mount('#app')
