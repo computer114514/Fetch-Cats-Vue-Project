@@ -1,13 +1,18 @@
 import {defineStore} from "pinia";
+// import { Update } from "vite";
 
 export const useCatsStore=defineStore("cats",{
-  state:()=>({count:0}),
-  getters:{
-    doubleCount:(state)=>state.count*2
-  },
+  state:()=>(
+    {list:JSON.parse(localStorage.getItem("list"))||[]}
+  ),
+  // getters:{
+  //   doubleCount:(state)=>state.count*2
+  // },
   actions:{
-    increment(){
-      this.count++;
+    update(data){
+      this.list.push(data);
+      console.log("cats里面的thisList",this.list)
     }
   }
 })
+console.log

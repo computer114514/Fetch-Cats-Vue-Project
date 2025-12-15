@@ -83,6 +83,7 @@ const formLabelWidth = '70px'
       }
       emit("change-is-fetch",false)
       emit("merge-new-cat-status",updateData)
+      console.log("执行到这了")
       dialogFormVisible.value = false;
     }
 </script>

@@ -2,14 +2,13 @@
     <div class="bigHeader">
         <div class="topButtons" style="display: flex;flex-direction: column;">
           <el-button size="large"  @click="Fetch" style="padding:15px;font-size:large;margin-bottom:10px;"> 捕获新猫猫 </el-button>
-          <el-button size="large"  @click="Fetch();store()" style="padding:15px;font-size:large" > 保存 </el-button>
+          <el-button size="large"  @click="Fetch();store();" style="padding:15px;font-size:large" > 保存 </el-button>
         </div>
         <div class="Cat-Selector" :class="{fix:isfix}" ref="CatSelector">
             <span v-for="item in list" :key="item.id" class="Cat-Selector-list">
                 <img :src="item.url" alt="err" @click="()=>{CurrentCat=item;noFetch()}">
                 <i class="iconfont icon-shanchu" @click="delList(item.url)"></i>
             </span>
-
         </div>
     </div>
 
@@ -19,11 +18,14 @@
 <script lang="js" setup>
     import {onMounted, ref,nextTick} from "vue"
 // import { linkEmits } from 'element-plus';
-
+    import { useCatsStore } from "@/stores/cats";
+    import { storeToRefs } from "pinia";
+    const catsStore=useCatsStore();
+    const {list}=storeToRefs(catsStore);
     const CatSelector=ref(null)
     //这个和模版上同名的就是这个元素。
     // const props=
-    defineProps(["isFetch","list","isfix"])
+    defineProps(["isFetch","isfix"])
     const emit=defineEmits(["save-dom","save-current-cat","fetch-confirm","fetch-cancel",
     "delete-list","store-local-cat"])
     const CurrentCat=ref("")

@@ -27,25 +27,30 @@
 
 <script setup>
 
-import{nextTick, onMounted}from "vue";
+    import{nextTick}from "vue";
     // import {fetchCat} from "./components/fetchCat.vue"
     //经典错误
     //{}是export多个，因此要{}包裹，fetchCat整个组件是默认导出
+    import {storeToRefs} from "pinia"
     import CatFetch from "./components/dataSelectAndCatImg/CatFetch.vue"
     import CatShow from './components/dataSelectAndCatImg/CatShow.vue';
     import {ref} from "vue"
     import CatImgStore from "./components/dataSelectAndCatImg/CatImgStore.vue";
     import StatusTab from "./components/dataSelectAndCatImg/StatusTab.vue";
     import CatActions from "./components/dataSelectAndCatImg/CatActions.vue";
+    import {useCatsStore} from "@/stores/cats"
     // import test from "./components/dataSelectAndCatImg/test.vue";
     //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
-
+    const catsStore=useCatsStore();
+    let {list}=storeToRefs(catsStore)
+    //let {list}=storeToRefs(catsStore)中list是响应式数据，因为storeToRefs了转成响应式了，所以要加value
+    //let {list}=catsStore中list不是响应式数据，不要加value
     const chat=ref("欢迎光临！")
     const isFetch=ref(true)
-    const list=ref([])
+    // const list=ref([])
     let dom=ref(null)
     const isfix=ref(false);
-    let currentCat=ref({})
+    const currentCat=ref({})
     function goodLevel(){
       if(0<currentCat.value.good&&currentCat.value.good<10){
           currentCat.value.goodLevel="认识你是谁"
@@ -57,11 +62,12 @@ import{nextTick, onMounted}from "vue";
           currentCat.value.goodLevel="超熟悉"
         }
     }
+
     function updateCatList(Data){
-        console.log("更新CatList",Data)
-        list.value=list.value.filter(item=>item!==Data)
-        list.value.push(Data)
         currentCat.value = Data
+        console.log("list is:",list.value)
+        list.value=list.value.filter(item=>item!==Data)
+        catsStore.update(currentCat.value);
         haveScroll()
     }
     function saveDom(m){
@@ -74,6 +80,7 @@ import{nextTick, onMounted}from "vue";
             isfix.value=height>165;
     }
     function saveCurrentCat(m){
+        console.log("saveCurrentCat之后",currentCat.value)
         currentCat.value=m;
         console.log("currentCat",currentCat.value)
     }
@@ -82,9 +89,11 @@ import{nextTick, onMounted}from "vue";
         ...currentCat.value,
         ...newData
       }
-      const index = list.value.findIndex(item => item.url === currentCat.value.url)
+      const index = list.value.findIndex(item => {console.log("item",item.url);return item.url === currentCat.value.url})
+      console.log("currentCat.value",currentCat.value.url)
+      console.log("currentCat.value",currentCat.value)
+      console.log("index-list",list.value)
       list.value[index] = currentCat.value
-
     }
     function fetchConfirm(){
       currentCat.value={};
@@ -145,11 +154,11 @@ import{nextTick, onMounted}from "vue";
     }
     function localStore(){
       console.log("成功存储")
-          localStorage.setItem("list",JSON.stringify(list.value))
+      localStorage.setItem("list",JSON.stringify(list.value))
     }
-    onMounted(()=>{
-      list.value=JSON.parse(localStorage.getItem("list"))||[]
-    })
+    // onMounted(()=>{
+    //   list.value=JSON.parse(localStorage.getItem("list"))||[]
+    // })
 </script>
 
 <style scoped>
