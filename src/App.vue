@@ -1,20 +1,22 @@
 <template>
   <div class="bigbox">
     <div class="header">
-    <CatImgStore :isFetch="isFetch" :list="list" :isfix="isfix" @Fetch="Fetch" @store="store"
-     @noFetch="noFetch" @saveDom="saveDom" @CurrentCat="CurrentCat" @delList="delList" :currentCat="currentCat">
+    <CatImgStore :isFetch="isFetch" :list="list" :isfix="isfix" :currentCat="currentCat"
+     @fetch-confirm="fetchConfirm" @store-local-cat="localStore"
+     @fetch-cancel="fetchCancel" @save-dom="saveDom" @save-current-cat="saveCurrentCat" @delete-list="delList" >
     </CatImgStore>
     </div>
     <div class="left">
-    <left :currentCat="currentCat" :chat="chat"></left>
+    <StatusTab :currentCat="currentCat" :chat="chat"></StatusTab>
     </div>
     <div class="main">
-    <fetchCat2 @CatList="updateCatList" v-if="isFetch" :currentCat="currentCat"
-    @updateCurrentList="updateCurrentList" @changeIsFetch="changeIsFetch"></fetchCat2>
-    <fetchCat2Copy :currentCat="currentCat" v-if="!isFetch"></fetchCat2Copy>
+    <CatFetch  v-if="isFetch" :currentCat="currentCat"
+    @merge-new-cat-status="updateCurrentList"
+    @change-is-fetch="changeIsFetch" @save-new-cat="updateCatList"></CatFetch>
+    <CatShow :currentCat="currentCat" v-if="!isFetch"></CatShow>
     </div>
     <div class="right">
-    <Right @momo="momo" @play="play" @walk="walk" @feed="feed" @hug="hug"></Right>
+    <CatActions @momo="momo" @play="play" @walk="walk" @feed="feed" @hug="hug"></CatActions>
     </div>
     <!-- <test></test> -->
   </div>
@@ -29,12 +31,12 @@ import{nextTick, onMounted}from "vue";
     // import {fetchCat} from "./components/fetchCat.vue"
     //经典错误
     //{}是export多个，因此要{}包裹，fetchCat整个组件是默认导出
-    import fetchCat2 from "./components/dataSelectAndCatImg/fetchCat2.vue"
-    import fetchCat2Copy from './components/dataSelectAndCatImg/fetchCat2Copy.vue';
+    import CatFetch from "./components/dataSelectAndCatImg/CatFetch.vue"
+    import CatShow from './components/dataSelectAndCatImg/CatShow.vue';
     import {ref} from "vue"
     import CatImgStore from "./components/dataSelectAndCatImg/CatImgStore.vue";
-    import Left from "./components/dataSelectAndCatImg/Left.vue";
-    import Right from "./components/dataSelectAndCatImg/Right.vue";
+    import StatusTab from "./components/dataSelectAndCatImg/StatusTab.vue";
+    import CatActions from "./components/dataSelectAndCatImg/CatActions.vue";
     // import test from "./components/dataSelectAndCatImg/test.vue";
     //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
     function goodLevel(){
@@ -59,18 +61,18 @@ import{nextTick, onMounted}from "vue";
         list.value=list.value.filter(item=>item!==Data)
         list.value.push(Data)
         currentCat.value = Data
-        fun()
+        haveScroll()
     }
     function saveDom(m){
         dom.value=m;
         console.log("dom",m)
     }
-    async function fun(){
+    async function haveScroll(){
             await nextTick();
             const height=dom.value.offsetHeight;
             isfix.value=height>165;
     }
-    function CurrentCat(m){
+    function saveCurrentCat(m){
         currentCat.value=m;
         console.log("currentCat",currentCat.value)
     }
@@ -83,11 +85,11 @@ import{nextTick, onMounted}from "vue";
       list.value[index] = currentCat.value
 
     }
-    function Fetch(){
+    function fetchConfirm(){
       currentCat.value={};
         isFetch.value=true;
     }
-    function noFetch(){
+    function fetchCancel(){
         isFetch.value=false;
     }
     function delList(url){
@@ -140,7 +142,7 @@ import{nextTick, onMounted}from "vue";
         goodLevel();
       }
     }
-    function store(){
+    function localStore(){
       console.log("成功存储")
           localStorage.setItem("list",JSON.stringify(list.value))
     }

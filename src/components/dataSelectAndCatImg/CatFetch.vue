@@ -1,7 +1,7 @@
 <template>
     <div class="bigbox">
         <div class="img">
-          <fetchcatFetch2 :key="count" @CatList="updateCatList1"></fetchcatFetch2>
+          <CatFetchImg :key="count" @CatList="updateCatList1"></CatFetchImg>
         </div>
         <div class="buttons" @keydown="OneKey">
             <el-button type="primary" size="large" @click="updateIsNew" style="padding:20px;font-size:20px"> 随机小猫(→切换)</el-button>
@@ -39,9 +39,9 @@ const formLabelWidth = '70px'
     const currentNo=ref("");
 
     import {onMounted, ref,onUnmounted} from "vue"
-    import fetchcatFetch2 from "./fetchcatFetch2.vue"
+    import CatFetchImg from "./CatFetchImg.vue"
 
-    const emit=defineEmits(["CatList","updateCurrentList","changeIsFetch"])
+    const emit=defineEmits(["save-new-cat","merge-new-cat-status","change-is-fetch"])
     defineProps(["currentCat"])
   // const dialogFormVisible=ref(false);
     const count=ref(0)
@@ -76,13 +76,13 @@ const formLabelWidth = '70px'
         dialogFormVisible.value=true;
     }
     function confirm(){
-      emit("CatList",urlData.value)
+      emit("save-new-cat",urlData.value)
       const updateData={
         name:currentName.value,
         no:currentNo.value
       }
-      emit("changeIsFetch",false)
-      emit("updateCurrentList",updateData)
+      emit("change-is-fetch",false)
+      emit("merge-new-cat-status",updateData)
       dialogFormVisible.value = false;
     }
 </script>

@@ -24,30 +24,31 @@
     //这个和模版上同名的就是这个元素。
     // const props=
     defineProps(["isFetch","list","isfix"])
-    const emit=defineEmits(["saveDom","CurrentCat","FetchBack","Fetch","noFetch","delList","store"])
+    const emit=defineEmits(["save-dom","save-current-cat","fetch-confirm","fetch-cancel",
+    "delete-list","store-local-cat"])
     const CurrentCat=ref("")
 
     onMounted(()=>{
-        emit("saveDom",CatSelector.value)
+        emit("save-dom",CatSelector.value)
 
     })
     function Fetch(){
 
         //在子组件中修改可不是什么明智的选择
-        emit("Fetch")
+        emit("fetch-confirm")
     }
     function noFetch(){
         //在子组件中修改可不是什么明智的选择
-        emit("noFetch");
-        emit("CurrentCat",CurrentCat.value)
+        emit("fetch-cancel");
+        emit("save-current-cat",CurrentCat.value)
     }
     function delList(e){
-        emit("delList",e)
+        emit("delete-list",e)
     }
     //nexTick代表等dom元素更新完成之后
     function store(){
         nextTick(()=>{
-          emit("store")
+          emit("store-local-cat")
         })
     }
 </script>
