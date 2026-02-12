@@ -3,34 +3,25 @@ import { ref, onMounted, defineEmits } from "vue";
 
 const loading = ref(true);
 const error = ref(null);
-const information = ref({});
-const emit = defineEmits(["CatList"]);
-
+let url = ref("");
+const emit = defineEmits(["saveCatUrl"]);
 async function fetchData() {
   try {
     const res = await fetch("https://api.thecatapi.com/v1/images/search");
     //基本操作，抓取数据
-    console.log("res", res);
     if (!res.ok) {
       throw new Error("网络不太对劲");
     }
     //边界判断：抓取失败
-    // information.value.push(await res.json());
-    information.value = await res.json(); // 把 JSON 塞进盒子,整个替换
-    console.log(information.value);
-    console.log("上两条");
 
-    //因为await会阻塞async函数，获取到数据后才执行urlData的赋值
-    // console.log("test")
-    const urlData = information.value[0];
-    urlData.name = "未登记";
-    urlData.no = 0;
-    urlData.age = 0;
-    urlData.good = 0;
-    urlData.goodLevel = "陌生";
-    urlData.walkCount = 0;
-    urlData.momoCount = 0;
-    emit("CatList", urlData);
+    // 3.拿到的res是response对象，不是json,因此需要解析 JSON 数据（关键！）
+    //解析晚是一个数组，数组的[0]号元素就是json数据
+
+    const data = await res.json();
+    //异步请求返回promise，你对他json()也要异步，不然是未定义。
+
+    url.value = data[0].url;
+    emit("saveCatUrl", url.value, data[0].id);
   } catch (e) {
     error.value = e.message;
   } finally {
@@ -52,7 +43,7 @@ onMounted(() => {
   <div v-if="loading" class="loading">loading</div>
   <p v-else-if="error">{{ error }}</p>
   <div v-else class="cat-container">
-    <img :src="information[0].url" alt="error" class="cat-img" />
+    <img :src="url" alt="error" class="cat-img" />
   </div>
 </template>
 

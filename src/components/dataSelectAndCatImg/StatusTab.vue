@@ -6,13 +6,14 @@
       </el-header>
       <el-main>
         <p>id:{{ currentCat.id }}</p>
-        <p>地址:<a :href="currentCat.url">选取猫猫后戳此获取</a></p>
+        <p>地址:<a :href="currentCat.imageUrl" target="_blank">选取猫猫后戳此获取</a></p>
         <p>昵称:{{ currentCat.name }}</p>
         <p>年龄:{{ currentCat.age }}</p>
-        <p>好感:{{ currentCat.good }}</p>
-        <p>好感评级:{{ currentCat.goodLevel }}</p>
-        <p>摸摸次数:{{ currentCat.momoCount }}</p>
+        <p>好感:{{ currentCat.favorability }}</p>
+        <p>好感评级:{{ currentCat.favorabilityLevel }}</p>
+        <p>摸摸次数:{{ currentCat.petCount }}</p>
         <p>散步次数:{{ currentCat.walkCount }}</p>
+        <p>捕获时间:<br />{{ currentCat.catchTime }}</p>
         <div>{{ chat }}</div>
       </el-main>
     </el-container>

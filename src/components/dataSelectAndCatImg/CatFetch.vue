@@ -1,7 +1,7 @@
 <template>
   <div class="bigbox">
     <div class="img">
-      <CatFetchImg :key="count" @CatList="updateCatList1"></CatFetchImg>
+      <CatFetchImg :key="count" @saveCatUrl="saveCatUrl"></CatFetchImg>
     </div>
     <div class="buttons" @keydown="OneKey">
       <el-button
@@ -34,7 +34,7 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消登记</el-button>
-        <el-button type="primary" @click="confirm"> 确定登记 </el-button>
+        <el-button type="primary" @click="confrim"> 确定登记 </el-button>
       </div>
     </template>
   </el-dialog>
@@ -45,16 +45,17 @@ const dialogFormVisible = ref(false);
 const formLabelWidth = "70px";
 
 const currentName = ref("");
-const currentNo = ref("");
 
 import { onMounted, ref, onUnmounted } from "vue";
 import CatFetchImg from "./CatFetchImg.vue";
+import { saveCatApi } from "@/api/CatApi";
+import { ElMessage } from "element-plus";
 
-const emit = defineEmits(["save-new-cat", "merge-new-cat-status", "change-is-fetch"]);
+const emit = defineEmits(["merge-new-cat-status", "change-is-fetch"]);
 defineProps(["currentCat"]);
 // const dialogFormVisible=ref(false);
 const count = ref(0);
-const urlData = ref("");
+const saveInfo = ref("");
 
 function OneKey(e) {
   if (e.key === "Enter") {
@@ -75,24 +76,27 @@ function updateIsNew() {
   count.value += 1;
 }
 
-function updateCatList1(Data) {
-  // console.log("更新了数据",Data)
-  urlData.value = Data;
+function saveCatUrl(url, id) {
+  saveInfo.value = { url, id };
+}
+
+//有请求，所以要异步，懂吗？
+async function confrim() {
+  try {
+    saveInfo.value.name = currentName.value;
+    // console.log("更新了数据",Data)
+    const result = await saveCatApi(saveInfo.value.url, saveInfo.value.id, saveInfo.value.name);
+    //这里调用接口获取后端数据
+    console.log("result", result);
+    dialogFormVisible.value = false;
+    ElMessage.success("保存成功");
+  } catch (e) {
+    ElMessage.error(e.message);
+  }
 }
 
 function updateCatList2() {
   dialogFormVisible.value = true;
-}
-function confirm() {
-  emit("save-new-cat", urlData.value);
-  const updateData = {
-    name: currentName.value,
-    no: currentNo.value,
-  };
-  emit("change-is-fetch", false);
-  emit("merge-new-cat-status", updateData);
-  console.log("执行到这了");
-  dialogFormVisible.value = false;
 }
 </script>
 
