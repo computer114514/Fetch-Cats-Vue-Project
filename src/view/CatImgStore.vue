@@ -8,19 +8,12 @@
       >
         捕获新猫猫
       </el-button>
-      <el-button
-        size="large"
-        @click="
-          Fetch();
-          store();
-        "
-        style="padding: 15px; font-size: large"
-      >
+      <!-- <el-button size="large" @click="Fetch()" style="padding: 15px; font-size: large">
         保存
-      </el-button>
+      </el-button> -->
     </div>
-    <div class="Cat-Selector" :class="{ fix: isfix }" ref="CatSelector">
-      <span v-for="item in list" :key="item.id" class="Cat-Selector-list">
+    <div class="Cat-Selector" ref="CatSelector">
+      <!-- <span v-for="item in list" :key="item.id" class="Cat-Selector-list">
         <img
           :src="item.imageUrl"
           alt="err"
@@ -32,7 +25,16 @@
           "
         />
         <i class="iconfont icon-shanchu" @click="delList(item.catId)"></i>
-      </span>
+      </span> -->
+      <cat-item-show
+        v-for="item in list"
+        :key="item.id"
+        :item="item"
+        @save-current-cat="saveCurrentCat"
+        @delList="delList"
+        class="Cat-Selector-list"
+        @Click="noFetch(item.catId)"
+      ></cat-item-show>
     </div>
   </div>
 
@@ -40,29 +42,29 @@
 </template>
 
 <script lang="js" setup>
-import { getCatApi } from "@/api/CatApi";
 import { ElMessage } from "element-plus";
-import { onMounted, ref, nextTick } from "vue";
+import { useCatsStore } from "@/stores/cats";
+import CatItemShow from "@/components/CatItemShow.vue";
+import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
 // import { linkEmits } from 'element-plus';
 // import { useCatsStore } from "@/stores/cats";
 // import { storeToRefs } from "pinia";
 // const catsStore=useCatsStore();
 // const {list}=storeToRefs(catsStore);
-const list = ref([]);
-
+const catsStore = useCatsStore();
 const CatSelector = ref(null);
+const { list } = storeToRefs(catsStore);
 //这个和模版上同名的就是这个元素。
 // const props=
-defineProps(["isFetch", "isfix"]);
+defineProps(["isfix"]);
 const emit = defineEmits([
   "save-dom",
   "save-current-cat",
   "fetch-confirm",
   "fetch-cancel",
   "delete-list",
-  "store-local-cat",
 ]);
-const CurrentCat = ref(""); //当前猫的信息
 
 onMounted(() => {
   emit("save-dom", CatSelector.value);
@@ -71,22 +73,28 @@ function Fetch() {
   //在子组件中修改可不是什么明智的选择
   emit("fetch-confirm");
 }
-function noFetch() {
-  //在子组件中修改可不是什么明智的选择
-  emit("fetch-cancel");
-  emit("save-current-cat", CurrentCat.value);
+async function delList(catId) {
+  //根据id删除猫
+  // list.value = list.value.filter((item) => item.url !== url);
+  await catsStore.delCat(catId);
+  ElMessage.success("id为 " + catId + " 的图片已删除");
+  Fetch();
+  //成功了，解决不跳转加个await就行了，原来是没有await删除函数，就往下fetch()，导致冲突就没有生效啊
+  //为了避免奇奇怪怪的bug，最好都加上await
 }
-function delList(e) {
-  emit("delete-list", e);
+function noFetch(catId) {
+  //在子组件中修改可不是什么明智的选择
+  emit("fetch-cancel", catId);
+}
+function saveCurrentCat(item) {
+  //保存当前选中的猫
+  emit("save-current-cat", item);
 }
 //nexTick代表等dom元素更新完成之后
-function store() {
-  nextTick(() => {
-    emit("store-local-cat");
-  });
-}
+
 onMounted(async () => {
-  list.value = await getCatApi();
+  await catsStore.getCat();
+  //加了await就是同步，不加await就是异步，不会阻塞，导致提示同时弹出
   ElMessage.success("获取列表成功");
 });
 </script>
@@ -116,27 +124,10 @@ onMounted(async () => {
   border: 3px solid grey;
   border-radius: 10px;
 }
-.bigHeader .Cat-Selector span {
-  /* span是行内块!!!!!!!!!!别想修改span的长宽，自然overflow也不行 */
-  display: inline-block;
-  height: 60px;
-  width: 160px;
-  overflow: hidden;
-  border: 2px solid #e3e5e7;
-  margin: 10px 20px;
-  border-radius: 5%;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5%;
-  }
-}
 .fix {
   height: 165px;
 }
 .Cat-Selector-list {
-  height: auto;
   position: relative;
 }
 .Cat-Selector-list i {

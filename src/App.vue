@@ -2,21 +2,14 @@
   <div class="bigbox">
     <div class="header">
       <CatImgStore
-        :isFetch="isFetch"
-        :list="list"
-        :isfix="isfix"
-        :currentCat="currentCat"
         @fetch-confirm="fetchConfirm"
-        @store-local-cat="localStore"
         @fetch-cancel="fetchCancel"
-        @save-dom="saveDom"
         @save-current-cat="saveCurrentCat"
-        @delete-list="delList"
       >
       </CatImgStore>
     </div>
     <div class="left">
-      <StatusTab :currentCat="currentCat" :chat="chat"></StatusTab>
+      <StatusTab :currentCat="currentCat"></StatusTab>
     </div>
     <div class="main">
       <CatFetch
@@ -41,15 +34,14 @@ import { nextTick } from "vue";
 //经典错误
 //{}是export多个，因此要{}包裹，fetchCat整个组件是默认导出
 import { storeToRefs } from "pinia";
-import CatFetch from "./components/dataSelectAndCatImg/CatFetch.vue";
-import CatShow from "./components/dataSelectAndCatImg/CatShow.vue";
+import CatFetch from "./view/CatFetch.vue";
+import CatShow from "./view/CatShow.vue";
 import { ref } from "vue";
-import CatImgStore from "./components/dataSelectAndCatImg/CatImgStore.vue";
-import StatusTab from "./components/dataSelectAndCatImg/StatusTab.vue";
-import CatActions from "./components/dataSelectAndCatImg/CatActions.vue";
+import CatImgStore from "./view/CatImgStore.vue";
+import StatusTab from "./view/StatusTab.vue";
+import CatActions from "./view/CatActions.vue";
 import { useCatsStore } from "@/stores/cats";
-import { delCatApi } from "./api/CatApi";
-import { ElMessage } from "element-plus";
+
 // import test from "./components/dataSelectAndCatImg/test.vue";
 //喂喂喂，github先生，能看到这行字吗，能的话你就很棒咯
 const catsStore = useCatsStore();
@@ -61,7 +53,8 @@ const isFetch = ref(true);
 // const list=ref([])
 let dom = ref(null);
 const isfix = ref(false);
-const currentCat = ref({}); //当前的这只猫：目前展示的这只
+//当前的这只猫：目前展示的这只
+let { currentCat } = storeToRefs(catsStore);
 function goodLevel() {
   if (0 < currentCat.value.good && currentCat.value.good < 10) {
     currentCat.value.goodLevel = "认识你是谁";
@@ -79,18 +72,14 @@ function updateCatList(Data) {
   catsStore.update(currentCat.value);
   haveScroll();
 }
-function saveDom(m) {
-  dom.value = m;
-  console.log("dom", m);
-}
 async function haveScroll() {
   await nextTick();
   const height = dom.value.offsetHeight;
   isfix.value = height > 165;
 }
-function saveCurrentCat(m) {
+function saveCurrentCat(item) {
   //保存用于展示的当前的这只猫。
-  currentCat.value = m;
+  currentCat.value = item;
 }
 function updateCurrentList(newData) {
   currentCat.value = {
@@ -107,19 +96,22 @@ function updateCurrentList(newData) {
   list.value[index] = currentCat.value;
 }
 function fetchConfirm() {
+  //把展示状态切换到抓取状态
   currentCat.value = {};
   isFetch.value = true;
 }
-function fetchCancel() {
+async function fetchCancel(catId) {
+  await catsStore.saveCurrentCat(catId);
+  console.log("currentCat", currentCat.value);
   isFetch.value = false;
 }
-async function delList(catId) {
-  console.log("删除了", catId);
-  // list.value = list.value.filter((item) => item.url !== url);
-  //这里出现了问题，必须要赋值到list.value才可以
-  await delCatApi(catId);
-  ElMessage.success("id为 " + catId + " 的图片已删除");
-}
+// async function delList(catId) {
+//   console.log("删除了", catId);
+//   // list.value = list.value.filter((item) => item.url !== url);
+//   //这里出现了问题，必须要赋值到list.value才可以
+//   await delCatApi(catId);
+//   ElMessage.success("id为 " + catId + " 的图片已删除");
+// }
 function changeIsFetch(value) {
   isFetch.value = value;
 }
@@ -162,10 +154,6 @@ function play() {
     currentCat.value.good += 15;
     goodLevel();
   }
-}
-function localStore() {
-  console.log("成功存储");
-  localStorage.setItem("list", JSON.stringify(list.value));
 }
 // onMounted(()=>{
 //   list.value=JSON.parse(localStorage.getItem("list"))||[]

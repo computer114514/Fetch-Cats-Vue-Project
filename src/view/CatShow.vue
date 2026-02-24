@@ -1,12 +1,16 @@
 <template>
   <div class="bigbox">
-    <div class="img"><img v-bind:src="currentCat.imageUrl" alt="error" class="cat-img" /></div>
+    <div class="img"><img v-bind:src="catStore.currentCat.imageUrl" alt="error" class="cat-img" /></div>
   </div>
 </template>
 
 <script lang="js" setup>
 // const props=
-defineProps(["currentCat"]);
+// defineProps(["currentCat"]);
+import {useCatsStore} from "@/stores/cats"
+
+const catStore=useCatsStore();
+
 </script>
 
 <style scoped>

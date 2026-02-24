@@ -22,6 +22,7 @@ async function fetchData() {
 
     url.value = data[0].url;
     emit("saveCatUrl", url.value, data[0].id);
+    //存到pinia的当前猫里面。
   } catch (e) {
     error.value = e.message;
   } finally {

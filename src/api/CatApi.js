@@ -14,5 +14,7 @@ export const getCatApi = () => request.get("/api/cat/get");
 //查看接口
 export const delCatApi = (catId) => request.delete(`/api/cat/del/${catId}`);
 //删除接口
-
+export const updateCatApi = (data) => request.put("/api/cat/update", data);
 //修改接口
+export const getCatByIdApi = (catId) => request.get(`/api/cat/get/${catId}`);
+//根据id查询接口

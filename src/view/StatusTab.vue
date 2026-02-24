@@ -4,7 +4,10 @@
       <el-header>
         <h1>状 态 栏</h1>
       </el-header>
-      <el-main>
+      <el-main v-if="Object.keys(currentCat).length === 0">
+        <p>点击仓库中的猫查看详情！</p>
+      </el-main>
+      <el-main v-else>
         <p>id:{{ currentCat.id }}</p>
         <p>地址:<a :href="currentCat.imageUrl" target="_blank">选取猫猫后戳此获取</a></p>
         <p>昵称:{{ currentCat.name }}</p>
@@ -21,8 +24,13 @@
 </template>
 
 <script lang="js" setup>
-defineProps(["currentCat", "chat"]);
 // console.log("currentCat",props.currentCat)
+import { useCatsStore } from "@/stores/cats";
+import { storeToRefs } from "pinia";
+const catsStore = new useCatsStore();
+
+let { currentCat, chat } = storeToRefs(catsStore);
+//注意：store属性没有响应式！必须这样：storetoref
 </script>
 
 <style scoped>
@@ -53,7 +61,7 @@ defineProps(["currentCat", "chat"]);
         margin-left: 20px;
       }
       div {
-        font-size: 25px;
+        font-size: 20px;
         text-align: center;
         line-height: 75px;
         border-radius: 3%;

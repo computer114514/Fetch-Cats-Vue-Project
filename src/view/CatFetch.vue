@@ -47,15 +47,18 @@ const formLabelWidth = "70px";
 const currentName = ref("");
 
 import { onMounted, ref, onUnmounted } from "vue";
-import CatFetchImg from "./CatFetchImg.vue";
-import { saveCatApi } from "@/api/CatApi";
+import CatFetchImg from "../components/CatFetchImg.vue";
 import { ElMessage } from "element-plus";
+import { useCatsStore } from "@/stores/cats.js";
+// import { storeToRefs } from "pinia";
 
-const emit = defineEmits(["merge-new-cat-status", "change-is-fetch"]);
+defineEmits(["merge-new-cat-status", "change-is-fetch"]);
 defineProps(["currentCat"]);
 // const dialogFormVisible=ref(false);
 const count = ref(0);
 const saveInfo = ref("");
+const catsStore = useCatsStore();
+// const { list } = storeToRefs(catsStore);
 
 function OneKey(e) {
   if (e.key === "Enter") {
@@ -82,17 +85,13 @@ function saveCatUrl(url, id) {
 
 //有请求，所以要异步，懂吗？
 async function confrim() {
-  try {
-    saveInfo.value.name = currentName.value;
-    // console.log("更新了数据",Data)
-    const result = await saveCatApi(saveInfo.value.url, saveInfo.value.id, saveInfo.value.name);
-    //这里调用接口获取后端数据
-    console.log("result", result);
-    dialogFormVisible.value = false;
-    ElMessage.success("保存成功");
-  } catch (e) {
-    ElMessage.error(e.message);
-  }
+  saveInfo.value.name = currentName.value;
+  // console.log("更新了数据",Data)
+  await catsStore.addCat(saveInfo.value.url, saveInfo.value.id, saveInfo.value.name);
+  dialogFormVisible.value = false;
+  ElMessage.success("保存成功");
+  currentName.value = "";
+  //await捕获异常，就不会往下执行代码了，直接到cath里面，但是服务器异常还是会抛出
 }
 
 function updateCatList2() {
