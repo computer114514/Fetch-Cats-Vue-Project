@@ -66,5 +66,11 @@ export const useCatsStore = defineStore("cats", {
       await this.updateCat(10, catId, 0, 0, name);
       this.chat = "猫咪吃饱了,非常满意";
     },
+    async unname(catId, name) {
+      await this.updateCat(0, catId, 0, 0, name);
+      this.chat = "猫有了新名字!";
+      this.currentCat = await this.getCatById(catId);
+      await this.getCat();
+    },
   },
 });

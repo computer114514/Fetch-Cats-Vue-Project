@@ -54,7 +54,9 @@ import { storeToRefs } from "pinia";
 // const {list}=storeToRefs(catsStore);
 const catsStore = useCatsStore();
 const CatSelector = ref(null);
-const { list } = storeToRefs(catsStore);
+const { list, currentCat } = storeToRefs(catsStore);
+const updateVisability = ref(false);
+
 //这个和模版上同名的就是这个元素。
 // const props=
 defineProps(["isfix"]);
@@ -73,9 +75,12 @@ function Fetch() {
   //在子组件中修改可不是什么明智的选择
   emit("fetch-confirm");
 }
+
 async function delList(catId) {
   //根据id删除猫
   // list.value = list.value.filter((item) => item.url !== url);
+  currentCat.value = {};
+  updateVisability.value = false;
   await catsStore.delCat(catId);
   ElMessage.success("id为 " + catId + " 的图片已删除");
   Fetch();

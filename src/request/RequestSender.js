@@ -1,3 +1,4 @@
+import router from "@/router";
 import axios from "axios";
 import { ElMessage } from "element-plus";
 
@@ -42,11 +43,26 @@ request.interceptors.response.use(
     // 网络错误或服务器错误
     if (error.message.includes("timeout")) {
       ElMessage.error("请求超时，请重试！");
-    } else if (error.response) {
+    } else if (error.response.status == "401") {
+      ElMessage.error(`未登录或token不合法！`);
+      router.push("/login");
+    } else {
       ElMessage.error(`服务器错误: ${error.response.status}`);
     }
+    console.log(error.response);
     return Promise.reject(error);
   },
 );
+//注册拦截器
+request.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  //获取token
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  //如果token存在
+  return config;
+  //放行
+});
 
 export default request;

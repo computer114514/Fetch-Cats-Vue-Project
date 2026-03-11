@@ -59,6 +59,8 @@ onMounted(() => {
   text-align: center;
 }
 .cat-container {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -71,6 +73,7 @@ onMounted(() => {
     } */
 /* 版本1:正常比例 */
 .cat-img {
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   object-fit: cover;

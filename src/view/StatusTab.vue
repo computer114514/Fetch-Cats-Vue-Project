@@ -10,7 +10,19 @@
       <el-main v-else>
         <p>id:{{ currentCat.id }}</p>
         <p>地址:<a :href="currentCat.imageUrl" target="_blank">选取猫猫后戳此获取</a></p>
-        <p>昵称:{{ currentCat.name }}</p>
+        <p>
+          昵称:{{ currentCat.name }}
+          <el-button
+            class="changeName"
+            type="success"
+            @click="
+              () => {
+                updateVisability = true;
+              }
+            "
+            >修改昵称</el-button
+          >
+        </p>
         <p>年龄:{{ currentCat.age }}</p>
         <p>好感:{{ currentCat.favorability }}</p>
         <p>好感评级:{{ currentCat.favorabilityLevel }}</p>
@@ -21,16 +33,50 @@
       </el-main>
     </el-container>
   </div>
+  <el-dialog v-model="updateVisability" title="改名" width="300">
+    <el-form>
+      <el-form-item label="输入新昵称" :label-width="formLabelWidth">
+        <el-input v-model="newName" autocomplete="off" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="updateVisability = false">取消修改</el-button>
+        <el-button type="primary" @click="confrim"> 确定修改 </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="js" setup>
 // console.log("currentCat",props.currentCat)
 import { useCatsStore } from "@/stores/cats";
 import { storeToRefs } from "pinia";
+import { ref, watch } from "vue";
+import { ElMessage } from "element-plus";
+
 const catsStore = new useCatsStore();
+const updateVisability = ref(false);
 
 let { currentCat, chat } = storeToRefs(catsStore);
+let newName = ref(String(currentCat.value.name));
+
+watch(currentCat, () => {
+  console.log("新名字", currentCat.value.name);
+  newName.value = currentCat.value.name;
+});
+
 //注意：store属性没有响应式！必须这样：storetoref
+
+async function confrim() {
+  // console.log("更新了数据",Data)
+  currentCat.value.name = newName.value;
+  updateVisability.value = false;
+  await catsStore.unname(currentCat.value.catId, currentCat.value.name);
+  newName.value = currentCat.value.name;
+  ElMessage.success("修改成功");
+  //await捕获异常，就不会往下执行代码了，直接到cath里面，但是服务器异常还是会抛出
+}
 </script>
 
 <style scoped>
@@ -38,7 +84,9 @@ let { currentCat, chat } = storeToRefs(catsStore);
   padding: 0;
   margin: 0;
 }
-
+.changeName {
+  margin: 0 8px;
+}
 .common-layout {
   height: 100%;
   .el-container {

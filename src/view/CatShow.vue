@@ -1,16 +1,17 @@
 <template>
   <div class="bigbox">
-    <div class="img"><img v-bind:src="catStore.currentCat.imageUrl" alt="error" class="cat-img" /></div>
+    <div class="img">
+      <img v-bind:src="catStore.currentCat.imageUrl" alt="error" class="cat-img" />
+    </div>
   </div>
 </template>
 
 <script lang="js" setup>
 // const props=
 // defineProps(["currentCat"]);
-import {useCatsStore} from "@/stores/cats"
+import { useCatsStore } from "@/stores/cats";
 
-const catStore=useCatsStore();
-
+const catStore = useCatsStore();
 </script>
 
 <style scoped>
@@ -21,16 +22,16 @@ const catStore=useCatsStore();
 
 .img {
   margin: 20px 35px;
-  width: 950px;
-  height: 700px;
+  width: 800px;
+  height: 600px;
   overflow: hidden;
 }
 .bigbox {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
-  width: 600px;
-  height: 700px;
+  width: 800px;
+  height: 600px;
   background-color: #f5f5f5;
   overflow: hidden;
 }

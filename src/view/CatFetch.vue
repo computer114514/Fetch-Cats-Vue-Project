@@ -108,14 +108,16 @@ function updateCatList2() {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  width: 90%;
-  height: 100%;
+  width: 850px;
+  height: 600px;
   background-color: #f5f5f5;
+  overflow: hidden;
 }
-.bigbox .img {
-  margin: 0 90px;
+.img {
+  margin: 0 auto;
   width: 800px;
   height: 600px;
+  overflow: hidden;
 }
 
 .buttons {
