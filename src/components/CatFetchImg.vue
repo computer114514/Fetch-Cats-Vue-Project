@@ -1,5 +1,5 @@
 <script lang="js" setup>
-import { ref, onMounted, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
 
 const loading = ref(true);
 const error = ref(null);

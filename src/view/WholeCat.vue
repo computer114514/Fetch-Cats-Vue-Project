@@ -8,6 +8,9 @@
       >
       </CatImgStore>
     </div>
+    <div class="avatar">
+      <AvatarDropDown></AvatarDropDown>
+    </div>
     <div class="left">
       <StatusTab :currentCat="currentCat"></StatusTab>
     </div>
@@ -24,12 +27,12 @@
     <div class="right">
       <CatActions @momo="momo" @play="play" @walk="walk" @feed="feed" @hug="hug"></CatActions>
     </div>
-    <!-- <test></test> -->
   </div>
 </template>
 
 <script setup>
 import { nextTick } from "vue";
+import AvatarDropDown from "@/components/AvatarDropDown.vue";
 // import {fetchCat} from "./components/fetchCat.vue"
 //经典错误
 //{}是export多个，因此要{}包裹，fetchCat整个组件是默认导出
@@ -180,7 +183,7 @@ function play() {
 }
 .header {
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
   width: 100%;
   /* background-color: aqua; */
 }

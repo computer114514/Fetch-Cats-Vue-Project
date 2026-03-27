@@ -2,6 +2,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import WholeCat from "@/view/WholeCat.vue";
 import UserLogin from "@/components/login/UserLogin.vue";
+import RareCatSecKill from "@/view/RareCatSecKill.vue";
+import QueryUser from "@/components/QueryUser.vue";
+import UserView from "@/view/UserView.vue";
 //定义routes
 const routes = [
   {
@@ -16,8 +19,32 @@ const routes = [
     name: "userLogin",
   },
   {
+    path: "/queryUser",
+    component: QueryUser,
+    name: "queryUser",
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/",
     redirect: "/cat",
+  },
+  {
+    path: "/rare",
+    component: RareCatSecKill,
+    name: "rareCatSecnKill",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/queryUser",
+    component: QueryUser,
+    name: "QueryUser",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/userView",
+    component: UserView,
+    name: "UserView",
+    meta: { requiresAuth: true },
   },
 ];
 //参考，route的属性:path,name,component------重定向:path,redirect

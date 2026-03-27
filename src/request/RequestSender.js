@@ -44,7 +44,8 @@ request.interceptors.response.use(
     if (error.message.includes("timeout")) {
       ElMessage.error("请求超时，请重试！");
     } else if (error.response.status == "401") {
-      ElMessage.error(`未登录或token不合法！`);
+      console.log("error", error);
+      ElMessage.error(`未登录或token不合法！报错信息:${error.message}`);
       router.push("/login");
     } else {
       ElMessage.error(`服务器错误: ${error.response.status}`);

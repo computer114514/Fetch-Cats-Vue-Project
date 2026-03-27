@@ -3,10 +3,19 @@
     <div class="topButtons" style="display: flex; flex-direction: column">
       <el-button
         size="large"
+        type="success"
         @click="Fetch"
         style="padding: 15px; font-size: large; margin-bottom: 10px"
       >
         捕获新猫猫
+      </el-button>
+      <el-button
+        size="large"
+        type="primary"
+        @click="ChangeToRareCatPage"
+        style="padding: 15px; font-size: large; margin-bottom: 10px"
+      >
+        ⏰️秒杀活动🔥
       </el-button>
       <!-- <el-button size="large" @click="Fetch()" style="padding: 15px; font-size: large">
         保存
@@ -47,6 +56,7 @@ import { useCatsStore } from "@/stores/cats";
 import CatItemShow from "@/components/CatItemShow.vue";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
+import router from "@/router";
 // import { linkEmits } from 'element-plus';
 // import { useCatsStore } from "@/stores/cats";
 // import { storeToRefs } from "pinia";
@@ -102,6 +112,11 @@ onMounted(async () => {
   //加了await就是同步，不加await就是异步，不会阻塞，导致提示同时弹出
   ElMessage.success("获取列表成功");
 });
+
+function ChangeToRareCatPage() {
+  //保存当前选中的猫
+  router.push("/rare");
+}
 </script>
 
 <style scoped>
