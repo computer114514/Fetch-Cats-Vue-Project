@@ -8,11 +8,10 @@
         3. @mousedown: 鼠标按下时添加阴影
         4. @mouseup / @mouseleave: 鼠标松开或移开时移除阴影
       -->
-      <div style="display: flex; cursor: pointer">
+      <div class="flex items-center cursor-pointer mr-15 text-2xl">
         <el-avatar
           size="large"
           src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-          class="cursor-pointer transition-all duration-300 ease-in-out"
           style="margin: 0 10px"
         />
         <h1>ethan</h1>

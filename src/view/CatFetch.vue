@@ -105,18 +105,17 @@ function updateCatList2() {
   margin: 0;
 }
 .bigbox {
+  height: 600px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  width: 850px;
-  height: 600px;
   background-color: #f5f5f5;
   overflow: hidden;
 }
 .img {
-  margin: 0 auto;
-  width: 800px;
   height: 600px;
+  width: 600px;
+  margin: 0 auto;
   overflow: hidden;
 }
 

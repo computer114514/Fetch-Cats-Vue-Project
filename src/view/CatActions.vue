@@ -1,21 +1,24 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header>
-        <h1>行 动</h1>
-      </el-header>
-      <el-main>
-        <i class="iconfont icon-zhengnengliang"></i
-        ><el-button size="large" @click="pet">摸摸</el-button> <i class="iconfont icon-hug"></i
-        ><el-button size="large" @click="hug">抱抱</el-button> <i class="iconfont icon-sanbu"></i
-        ><el-button size="large" @click="walk">散步</el-button>
-        <i class="iconfont icon-chongwutubiao05"></i
-        ><el-button size="large" @click="play">玩耍</el-button>
-        <i class="iconfont icon-weishiqimin"></i
-        ><el-button size="large" @click="feed">喂食</el-button>
-      </el-main>
-    </el-container>
-  </div>
+  <el-card>
+    <div class="common-layout">
+      <el-container>
+        <el-header class="flex justify-center items-center text-3xl">
+          <h1>行 动</h1>
+        </el-header>
+        <el-main>
+          <i class="iconfont icon-zhengnengliang"></i
+          ><el-button size="large" @click="pet">摸摸</el-button> <i class="iconfont icon-hug"></i
+          ><el-button size="large" @click="hug">抱抱</el-button> <i class="iconfont icon-sanbu"></i
+          ><el-button size="large" @click="walk">散步</el-button>
+          <i class="iconfont icon-chongwutubiao05"></i
+          ><el-button size="large" @click="play">玩耍</el-button>
+          <i class="iconfont icon-weishiqimin"></i
+          ><el-button size="large" @click="feed">喂食</el-button>
+        </el-main>
+      </el-container>
+    </div>
+  </el-card>
+
   <link rel="stylesheet" href="/public/图标/右侧/iconfont.css" />
 </template>
 
@@ -51,18 +54,12 @@ async function feed() {
   height: 100%;
   .el-container {
     height: 100%;
-    .el-header {
-      border: 4px solid skyblue;
-      text-align: center;
-      border-bottom: 4px dotted blue;
-    }
     .el-main {
       font-size: 30px;
       color: #666666;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      border: 4px solid skyblue;
       height: 100%;
       border-top: 0;
       i {

@@ -18,3 +18,4 @@ export const updateCatApi = (data) => request.put("/api/cat/update", data);
 //修改接口
 export const getCatByIdApi = (catId) => request.get(`/api/cat/get/${catId}`);
 //根据id查询接口
+export const getRandomCatApi = () => request.get("/catAdmin/getRandomCat");

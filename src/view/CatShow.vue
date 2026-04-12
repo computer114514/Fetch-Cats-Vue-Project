@@ -21,16 +21,16 @@ const catStore = useCatsStore();
 }
 
 .img {
-  margin: 20px 35px;
-  width: 800px;
-  height: 600px;
+  margin: 10px 10px;
+  width: 700px;
+  height: 570px;
   overflow: hidden;
 }
 .bigbox {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
+  width: 700px;
   height: 600px;
   background-color: #f5f5f5;
   overflow: hidden;

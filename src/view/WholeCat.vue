@@ -1,5 +1,5 @@
 <template>
-  <div class="bigbox">
+  <!-- <div class="bigbox">
     <div class="header">
       <CatImgStore
         @fetch-confirm="fetchConfirm"
@@ -27,6 +27,39 @@
     <div class="right">
       <CatActions @momo="momo" @play="play" @walk="walk" @feed="feed" @hug="hug"></CatActions>
     </div>
+  </div> -->
+  <div class="p-10">
+    <el-row :gutter="20" class="flex justify-center items-center">
+      <el-col :span="22">
+        <CatImgStore
+          @fetch-confirm="fetchConfirm"
+          @fetch-cancel="fetchCancel"
+          @save-current-cat="saveCurrentCat"
+        >
+        </CatImgStore>
+      </el-col>
+      <el-col :span="2">
+        <div class="avatar">
+          <AvatarDropDown></AvatarDropDown>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="felx justify-around">
+      <el-col :span="6" class="ml-15"><StatusTab :currentCat="currentCat"></StatusTab></el-col>
+      <el-col :span="11">
+        <CatFetch
+          v-if="isFetch"
+          :currentCat="currentCat"
+          @merge-new-cat-status="updateCurrentList"
+          @change-is-fetch="changeIsFetch"
+          @save-new-cat="updateCatList"
+        ></CatFetch>
+        <CatShow :currentCat="currentCat" v-if="!isFetch"></CatShow>
+      </el-col>
+      <el-col :span="4">
+        <CatActions @momo="momo" @play="play" @walk="walk" @feed="feed" @hug="hug"></CatActions>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -170,23 +203,24 @@ function play() {
   margin: 0;
   box-sizing: border-box;
 }
-.bigbox {
+.el-row {
+  margin: 40px 0;
+}
+/* .bigbox {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* border-radius:5%; */
   padding: 10px;
   display: grid;
   grid-template-columns: 400px 1fr 200px;
   grid-template-rows: 120px 1fr;
   gap: 15px;
-}
-.header {
+} */
+/* .header {
   grid-column-start: 1;
   grid-column-end: 3;
   width: 100%;
-  /* background-color: aqua; */
-}
+} */
 .left {
   background-color: skyblue;
 }

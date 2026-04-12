@@ -1,5 +1,6 @@
 <script lang="js" setup>
 import { ref, onMounted } from "vue";
+import { getRandomCatApi } from "@/api/CatApi";
 
 const loading = ref(true);
 const error = ref(null);
@@ -7,21 +8,14 @@ let url = ref("");
 const emit = defineEmits(["saveCatUrl"]);
 async function fetchData() {
   try {
-    const res = await fetch("https://api.thecatapi.com/v1/images/search");
-    //基本操作，抓取数据
-    if (!res.ok) {
-      throw new Error("网络不太对劲");
-    }
-    //边界判断：抓取失败
-
+    const res = await getRandomCatApi();
     // 3.拿到的res是response对象，不是json,因此需要解析 JSON 数据（关键！）
     //解析晚是一个数组，数组的[0]号元素就是json数据
-
     const data = await res.json();
     //异步请求返回promise，你对他json()也要异步，不然是未定义。
 
-    url.value = data[0].url;
-    emit("saveCatUrl", url.value, data[0].id);
+    url.value = data.url;
+    emit("saveCatUrl", url.value, data.catId);
     //存到pinia的当前猫里面。
   } catch (e) {
     error.value = e.message;
