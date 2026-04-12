@@ -79,6 +79,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { userLogin, codeLogin, sendCode } from "@/api/UserLogin";
+import { ElMessage } from "element-plus";
 // import { UseAuthStore } from "@/stores/auth";
 
 const username = ref("");
@@ -97,8 +98,8 @@ const changeLoginMethod = () => {
   }
 };
 const sendCodeMethod = async () => {
-  console.log("sendcoding..", phone.value, code.value);
   await sendCode(phone.value);
+  ElMessage.success("发送成功");
 };
 
 const passwordLoginMethod = async () => {
