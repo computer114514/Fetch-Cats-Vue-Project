@@ -44,7 +44,7 @@
 const dialogFormVisible = ref(false);
 const formLabelWidth = "70px";
 
-const currentName = ref("");
+const currentName = ref();
 
 import { onMounted, ref, onUnmounted } from "vue";
 import CatFetchImg from "../components/CatFetchImg.vue";

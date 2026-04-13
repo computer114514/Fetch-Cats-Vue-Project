@@ -6,22 +6,16 @@ const loading = ref(true);
 const error = ref(null);
 let url = ref("");
 const emit = defineEmits(["saveCatUrl"]);
+const randomCat = ref({});
 async function fetchData() {
-  try {
-    const res = await getRandomCatApi();
-    // 3.拿到的res是response对象，不是json,因此需要解析 JSON 数据（关键！）
-    //解析晚是一个数组，数组的[0]号元素就是json数据
-    const data = await res.json();
-    //异步请求返回promise，你对他json()也要异步，不然是未定义。
-
-    url.value = data.url;
-    emit("saveCatUrl", url.value, data.catId);
-    //存到pinia的当前猫里面。
-  } catch (e) {
-    error.value = e.message;
-  } finally {
-    loading.value = false;
-  }
+  randomCat.value = await getRandomCatApi();
+  console.log(randomCat.value);
+  // 3.拿到的res是response对象，不是json,因此需要解析 JSON 数据（关键！）
+  //解析晚是一个数组，数组的[0]号元素就是json数据
+  //异步请求返回promise，你对他json()也要异步，不然是未定义。
+  url.value = randomCat.value.imageUrl;
+  emit("saveCatUrl", url.value, randomCat.value.catId);
+  loading.value = false;
 }
 
 // console.log(information.value[0].url)
@@ -38,7 +32,7 @@ onMounted(() => {
   <div v-if="loading" class="loading">loading</div>
   <p v-else-if="error">{{ error }}</p>
   <div v-else class="cat-container">
-    <img :src="url" alt="error" class="cat-img" />
+    <img :src="randomCat.imageUrl" alt="error" class="cat-img" />
   </div>
 </template>
 
